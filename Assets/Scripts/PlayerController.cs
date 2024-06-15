@@ -16,10 +16,12 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
+    public GameObject powerupIndicator;
     void Update()
     {
         float forwardInput = Input.GetAxis("Vertical");
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
+        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
     }
     public bool haspowerup;
     private void OnTriggerEnter(Collider other){
@@ -27,12 +29,15 @@ public class PlayerController : MonoBehaviour
             haspowerup = true;
             Destroy(other.gameObject);
             StartCoroutine(PowerupCountdownRoutine());
+            powerupIndicator.gameObject.SetActive(true);
         }
+     
     }
     IEnumerator PowerupCountdownRoutine()
     {
         yield return new WaitForSeconds(7);
         haspowerup = false;
+        powerupIndicator.gameObject.SetActive(false);
     }
     private float powerupStrength = 15.0f;
     private void OnCollisionEnter(Collision collision)
