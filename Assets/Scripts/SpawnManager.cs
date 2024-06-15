@@ -6,10 +6,11 @@ public class NewBehaviourScript : MonoBehaviour
 {
     public GameObject enemyPrefab;
     private float spawnRange = 9.0f;
+    public int waveNumber = 1;
     // Start is called before the first frame update
     void Start()
     {
-        SpawnEnemyWave(3);
+        SpawnEnemyWave(waveNumber);
         //Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
     }
 
@@ -18,7 +19,7 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         enemyCount = FindObjectsOfType<Enemy>().Length;
-        if (enemyCount == 0) { SpawnEnemyWave(1); }
+        if (enemyCount == 0) { waveNumber++; SpawnEnemyWave(waveNumber); }
     }
     void SpawnEnemyWave(int enemiesToSpawn)
     {
