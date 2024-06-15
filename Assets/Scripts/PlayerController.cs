@@ -21,4 +21,11 @@ public class PlayerController : MonoBehaviour
         float forwardInput = Input.GetAxis("Vertical");
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
     }
+    public bool haspowerup;
+    private void OnTriggerEnter(Collider other){
+     if (other.CompareTag("Powerup")) {
+            haspowerup = true;
+            Destroy(other.gameObject);
+        }
+    }
 }
